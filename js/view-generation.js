@@ -143,8 +143,7 @@ var ViewGeneration = (function () {
 
         fromBlockRow = 10 - Math.ceil(fromBlockIndex / 10);
         fromBlockCol = fromBlockIndex % 10;
-
-
+        
         toBlockRow = 10 - Math.ceil(toBlockIndex / 10);
         toBlockCol = toBlockIndex % 10;
 
