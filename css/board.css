@@ -1,0 +1,41 @@
+.main-board {
+    width: 600px;
+    height: 600px;
+    border: 5px solid black;
+    position: relative;
+    background-color: rgb(195, 240, 248);
+}
+
+.block-board {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    float:left;
+}
+
+.floater {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.player-inactive {
+    display: none;
+}
+
+.player1 {
+    color: blue;
+}
+
+.player2 {
+    color: green;
+}
+
+.player3 {
+    color: red;
+}
+
+.player4 {
+    color: yellow;
+}
