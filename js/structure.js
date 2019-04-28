@@ -1,26 +1,53 @@
-
+/**
+ * Class contains the array and index mapping of the board structure.
+ */
 var MainBoardStructure = (function () {
     let mainBoardStructureArr;
+
+    /**
+     * Constructor
+     */
     function MainBoardStructure() {
         mainBoardStructureArr = [];
     }
-    
-    MainBoardStructure.prototype.getBoardStructureArr = function() {
+
+    /**
+     * Returns the board structure array.
+     */
+    MainBoardStructure.prototype.getBoardStructureArr = function () {
         return mainBoardStructureArr;
     }
 
-    MainBoardStructure.prototype.getIndex = function(position) {
+    /**
+     * Returns the index of the position.
+     * @param {number} position 
+     */
+    MainBoardStructure.prototype.getIndex = function (position) {
         return mainBoardStructureArr.indexOf(position);
     }
-    
-    MainBoardStructure.prototype.setBoardStructureArr = function(mainBoardArr) {
+
+    /**
+     * Sets the board structure array.
+     * @param {number[]} mainBoardArr 
+     */
+    MainBoardStructure.prototype.setBoardStructureArr = function (mainBoardArr) {
         mainBoardStructureArr = mainBoardArr;
     }
 
     return MainBoardStructure;
 }());
 
-var Ladder = (function() {
+
+/**
+ * Class contains ladder information.
+ */
+var Ladder = (function () {
+
+    /**
+     * Constructor
+     * @param {int} from 
+     * @param {int} to 
+     */
     function Ladder(from, to) {
         this.from = from;
         this.to = to;
@@ -29,7 +56,17 @@ var Ladder = (function() {
     return Ladder;
 }());
 
-var Snake = (function() {
+
+/**
+ * Class contains snake information.
+ */
+var Snake = (function () {
+
+    /**
+     * Constructor
+     * @param {int} from 
+     * @param {int} to 
+     */
     function Snake(from, to) {
         this.from = from;
         this.to = to;
@@ -38,48 +75,77 @@ var Snake = (function() {
     return Snake;
 }());
 
-var SnakesAndLadder = (function() {
+
+/**
+ * Class contains details of all snakes and ladders.
+ */
+var SnakesAndLadder = (function () {
     let snakes;
     let ladders;
 
+    /**
+     * Constructor
+     */
     function SnakesAndLadder() {
         snakes = [];
         ladders = [];
     }
 
-    SnakesAndLadder.prototype.addSnake = function(snake) {
+    /**
+     * Add snake.
+     * @param {Snake} snake 
+     */
+    SnakesAndLadder.prototype.addSnake = function (snake) {
         snakes.push(snake);
     }
 
-    SnakesAndLadder.prototype.addLadder = function(ladder) {
+    /**
+     * Add ladder.
+     * @param {Ladder} ladder 
+     */
+    SnakesAndLadder.prototype.addLadder = function (ladder) {
         ladders.push(ladder);
     }
 
-    SnakesAndLadder.prototype.getSnakes = function() {
+    /**
+     * Returns the array of all snakes.
+     */
+    SnakesAndLadder.prototype.getSnakes = function () {
         return snakes;
     }
 
-    SnakesAndLadder.prototype.getLadders = function() {
+    /**
+     * Returns the array of all ladders.
+     */
+    SnakesAndLadder.prototype.getLadders = function () {
         return ladders;
     }
 
+    /**
+     * Returns the new position if the ladder jumps.
+     * @param {int} position 
+     */
     SnakesAndLadder.prototype.getLadderJump = function (position) {
-        for(let x = 0; x < ladders.length; x++) {
-            if(position === ladders[x].from) {
+        for (let x = 0; x < ladders.length; x++) {
+            if (position === ladders[x].from) {
                 return ladders[x].to;
             }
         }
         return position;
     }
 
-    SnakesAndLadder.prototype.getSnakeDip = function(position) {
-        for(let x = 0; x < snakes.length; x++) {
-            if(position === snakes[x].from) {
+    /**
+     * Returns the new position if the snake dips.
+     * @param {int} position 
+     */
+    SnakesAndLadder.prototype.getSnakeDip = function (position) {
+        for (let x = 0; x < snakes.length; x++) {
+            if (position === snakes[x].from) {
                 return snakes[x].to;
             }
         }
         return position;
     }
-    
+
     return SnakesAndLadder;
 }());

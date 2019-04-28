@@ -1,49 +1,86 @@
 var _gameConfiguration;
 
+/**
+ * Player class.
+ */
 var Player = (function () {
-    var Player = function() {
+
+    /**
+     * Constructor
+     */
+    var Player = function () {
         this.currentPosition = 1;
     }
 
-    Player.prototype.setPosition = function(newPosition) {
+    /**
+     * Sets the new position for the player.
+     * @param {int} newPosition 
+     */
+    Player.prototype.setPosition = function (newPosition) {
         this.currentPosition = newPosition;
     }
 
     return Player;
 }());
 
+/**
+ * Class contains multiple players along with metadata.
+ */
 var Players = (function () {
     var currentPlayer;
     var gameInProgress;
     var playerDetails;
 
-    var Players = function() {
+    /**
+     * Constructor
+     */
+    var Players = function () {
         currentPlayer = 1;
         gameInProgress = true;
         playerDetails = [];
     }
 
-    Players.prototype.addPlayer = function(player) {
+    /**
+     * Adds new player.
+     * @param {Player} player 
+     */
+    Players.prototype.addPlayer = function (player) {
         playerDetails.push(player);
     }
 
-    Players.prototype.getPlayers = function() {
+    /**
+     * Returns array of players.
+     */
+    Players.prototype.getPlayers = function () {
         return playerDetails;
     }
 
-    Players.prototype.getCurrentPlayerIndex = function() {
+    /**
+     * Returns the index for the current player.
+     */
+    Players.prototype.getCurrentPlayerIndex = function () {
         return currentPlayer;
     }
 
-    Players.prototype.setCurrentPlayerIndex = function(index) {
+    /**
+     * Sets the index for the current player.
+     * @param {int} index 
+     */
+    Players.prototype.setCurrentPlayerIndex = function (index) {
         currentPlayer = index;
     }
 
-    Players.prototype.isGameInProgress = function() {
+    /**
+     * Returns true/false if the game is in progress.
+     */
+    Players.prototype.isGameInProgress = function () {
         return gameInProgress;
     }
 
-    Players.prototype.finishGame = function() {
+    /**
+     * Finishes the game and sets the flags.
+     */
+    Players.prototype.finishGame = function () {
         gameInProgress = false;
     }
 

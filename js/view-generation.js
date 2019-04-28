@@ -1,22 +1,41 @@
-var ViewGeneration = (function() {
+/**
+ * Class contains all view related tasks.
+ */
+var ViewGeneration = (function () {
 
-    var ViewGeneration = function(mainBoardStructure, laddersArr, snakesArr, players) {
+    /**
+     * Constructor
+     * @param {MainBoardStructure} mainBoardStructure 
+     * @param {Ladder[]} laddersArr 
+     * @param {Snake[]} snakesArr 
+     * @param {Players} players 
+     */
+    var ViewGeneration = function (mainBoardStructure, laddersArr, snakesArr, players) {
         addBoardToView(mainBoardStructure);
-        addLaddersToView(mainBoardStructure,laddersArr);
+        addLaddersToView(mainBoardStructure, laddersArr);
         addSnakesToView(mainBoardStructure, snakesArr);
         initPlayers(players)
     }
 
-    ViewGeneration.prototype.playerWon = function(playerId) {
+    /**
+     * Updates View for the player won.
+     * @param {int} playerId 
+     */
+    ViewGeneration.prototype.playerWon = function (playerId) {
         document.getElementById("player-info").innerHTML = '<span class="player' + playerId + '">Player: ' + playerId + ' Won!</span>';
         document.getElementById("dice-roll").disabled = true;
     }
 
-    ViewGeneration.prototype.updatePlayerLocation = function(previousPosition, CurrentPosition) {
+    /**
+     * Updates the player location in view.
+     * @param {int} previousPosition 
+     * @param {int} CurrentPosition 
+     */
+    ViewGeneration.prototype.updatePlayerLocation = function (previousPosition, currentPosition) {
         let previousBlock = "block" + previousPosition;
         let previousBlockElement = document.getElementById(previousBlock);
 
-        let newBlock = "block" + CurrentPosition;
+        let newBlock = "block" + currentPosition;
         let newBlockElement = document.getElementById(newBlock);
 
         let className = "player" + _players.getCurrentPlayerIndex();
@@ -24,41 +43,62 @@ var ViewGeneration = (function() {
         newBlockElement.getElementsByClassName(className)[0].classList.remove("player-inactive");
     }
 
-    ViewGeneration.prototype.updateCurrentPlayerLabel = function(playerId) {
+    /**
+     * Updates the current player label.
+     * @param {int} playerId 
+     */
+    ViewGeneration.prototype.updateCurrentPlayerLabel = function (playerId) {
         document.getElementById("player-info").innerHTML = '<span class="player' + playerId + '">Current Player: ' + playerId + '</span>';
     }
 
-    ViewGeneration.prototype.updateDiceLabel = function(diceValue) {
-        var displayText = "<span>Dice Value: " + diceValue +"</span>";
+    /**
+     * Updates the Dice label.
+     * @param {int} diceValue 
+     */
+    ViewGeneration.prototype.updateDiceLabel = function (diceValue) {
+        var displayText = "<span>Dice Value: " + diceValue + "</span>";
         document.getElementById("game-play").innerHTML = displayText;
     }
-    
-    var initPlayers = function(players) {
+
+    /**
+     * Initializes view for the players.
+     * @param {Players} players 
+     */
+    var initPlayers = function (players) {
         let block1 = document.getElementById("block1");
         let playersArr = players.getPlayers();
 
-        for(let x = 1; x <= playersArr.length; x++) {
+        for (let x = 1; x <= playersArr.length; x++) {
             let className = "player" + x;
             block1.getElementsByClassName(className)[0].classList.remove("player-inactive");
         }
         document.getElementById("player-info").innerHTML = '<span class="player1">Current Player: 1</span>';
     }
 
-    var addBoardToView = function(mainBoardStructure) {
+    /**
+     * Adds the board to view.
+     * @param {MainBoardStructure} mainBoardStructure 
+     */
+    var addBoardToView = function (mainBoardStructure) {
         let mainBoard = document.getElementById("main-board");
         let mainBoardStructureArr = mainBoardStructure.getBoardStructureArr();
 
-        for( let x = 0; x<mainBoardStructureArr.length; x++) {
+        for (let x = 0; x < mainBoardStructureArr.length; x++) {
 
-            mainBoard.innerHTML += '<div class="block-board" id=block'+mainBoardStructureArr[x]+'>'+ mainBoardStructureArr[x] + 
-                                        `<br/><br/><span id="player1" class="player-inactive player1">*</span>
+            mainBoard.innerHTML += '<div class="block-board" id=block' + mainBoardStructureArr[x] + '>' + mainBoardStructureArr[x] +
+                `<br/><br/><span id="player1" class="player-inactive player1">*</span>
                                         <span id="player2" class="player-inactive player2">*</span>
                                         <span id="player3" class="player-inactive player3">*</span>
                                         <span id="player4" class="player-inactive player4">*</span>` + '</div>';
         }
     }
 
-    var addLaddersToView = function(mainBoardStructure, laddersArr) {
+    /**
+     * Adds the ladders to view.
+     * @param {MainBoardStructure} mainBoardStructure 
+     * @param {Ladder[]} laddersArr 
+     */
+    var addLaddersToView = function (mainBoardStructure, laddersArr) {
         laddersArr.forEach(ladder => {
             let coordinates = generateCoordinates(mainBoardStructure, ladder.from, ladder.to);
             var mainBoard = document.getElementById("main-board");
@@ -72,7 +112,12 @@ var ViewGeneration = (function() {
         });
     }
 
-    var addSnakesToView = function(mainBoardStructure, snakesArr) {
+    /**
+     * Adds the snakes to view.
+     * @param {MainBoardStructure} mainBoardStructure 
+     * @param {Snakes[]} snakesArr 
+     */
+    var addSnakesToView = function (mainBoardStructure, snakesArr) {
         snakesArr.forEach(ladder => {
             let coordinates = generateCoordinates(mainBoardStructure, ladder.from, ladder.to);
             let mainBoard = document.getElementById("main-board");
@@ -86,29 +131,35 @@ var ViewGeneration = (function() {
         });
     }
 
-    var generateCoordinates = function(mainBoardStructure, fromBlock, toBlock) {
+    /**
+     * Generates the co-ordinates for the blocks.
+     * @param {MainBoardStructure} mainBoardStructure 
+     * @param {int} fromBlock 
+     * @param {int} toBlock 
+     */
+    var generateCoordinates = function (mainBoardStructure, fromBlock, toBlock) {
         fromBlockIndex = mainBoardStructure.getIndex(fromBlock);
         toBlockIndex = mainBoardStructure.getIndex(toBlock);
-    
+
         fromBlockRow = 10 - Math.ceil(fromBlockIndex / 10);
         fromBlockCol = fromBlockIndex % 10;
-    
-    
+
+
         toBlockRow = 10 - Math.ceil(toBlockIndex / 10);
         toBlockCol = toBlockIndex % 10;
-    
-        fromXAxis = ((fromBlockCol)*60)+30;
-        fromYAxis = 540 - ((fromBlockRow)*60)+30;
-    
-        toXAxis = ((toBlockCol)*60)+30;
-        toYAxis = 540 - ((toBlockRow)*60)+30;
-    
+
+        fromXAxis = ((fromBlockCol) * 60) + 30;
+        fromYAxis = 540 - ((fromBlockRow) * 60) + 30;
+
+        toXAxis = ((toBlockCol) * 60) + 30;
+        toYAxis = 540 - ((toBlockRow) * 60) + 30;
+
         return {
-                fromXaxis: fromXAxis, 
-                fromYaxis: fromYAxis,
-                toXaxis: toXAxis,
-                toYaxis: toYAxis
-                };
+            fromXaxis: fromXAxis,
+            fromYaxis: fromYAxis,
+            toXaxis: toXAxis,
+            toYaxis: toYAxis
+        };
     }
 
     return ViewGeneration;

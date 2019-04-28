@@ -1,15 +1,21 @@
-window.onload = function(e) {
+window.onload = function (e) {
     _gameConfiguration = new ConfigureGame();
 }
 
-var ConfigureGame = (function() {
+/**
+ * Configures the initial game setup.
+ */
+var ConfigureGame = (function () {
     let mainBoardStructure;
     let snakesAndLadder;
     let players;
     let view;
 
-    var ConfigureGame = function() {
-        
+    /**
+     * Constructor
+     */
+    var ConfigureGame = function () {
+
         let boardStructure = generateBoardStructure();
 
         mainBoardStructure = new MainBoardStructure();
@@ -35,26 +41,35 @@ var ConfigureGame = (function() {
         view = new ViewGeneration(mainBoardStructure, laddersArr, snakesArr, players);
     }
 
+    /**
+     * Returns the instance of players class.
+     */
     ConfigureGame.prototype.getPlayersInstance = function () {
         return players;
     }
 
-    ConfigureGame.prototype.getViewInstance = function() {
+    /**
+     * Returns the instance of view class.
+     */
+    ConfigureGame.prototype.getViewInstance = function () {
         return view;
     }
 
-    var generateBoardStructure = function() {
+    /**
+     * Generate the board structure.
+     */
+    var generateBoardStructure = function () {
         let counter = 1;
         let tempSingleRow = [];
         let boardStructure = [];
 
-        for(let x=100; x>=1; x--) {
-            
+        for (let x = 100; x >= 1; x--) {
+
             tempSingleRow.push(x);
 
-            if(x % 10 == 1) {
-                
-                if(counter % 2 !== 0) {
+            if (x % 10 == 1) {
+
+                if (counter % 2 !== 0) {
                     boardStructure.push(tempSingleRow);
                 } else {
                     boardStructure.push(tempSingleRow.reverse());
@@ -67,6 +82,6 @@ var ConfigureGame = (function() {
 
         return boardStructure.flat();
     }
-    
+
     return ConfigureGame;
 }());
