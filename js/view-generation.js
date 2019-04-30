@@ -3,6 +3,7 @@
  */
 var ViewGeneration = (function () {
 
+    let playersObj;
     /**
      * Constructor
      * @param {MainBoardStructure} mainBoardStructure 
@@ -11,6 +12,7 @@ var ViewGeneration = (function () {
      * @param {Players} players 
      */
     var ViewGeneration = function (mainBoardStructure, laddersArr, snakesArr, players) {
+        playersObj = players;
         addBoardToView(mainBoardStructure);
         addLaddersToView(mainBoardStructure, laddersArr);
         addSnakesToView(mainBoardStructure, snakesArr);
@@ -38,7 +40,7 @@ var ViewGeneration = (function () {
         let newBlock = "block" + currentPosition;
         let newBlockElement = document.getElementById(newBlock);
 
-        let className = "player" + _players.getCurrentPlayerIndex();
+        let className = "player" + playersObj.getCurrentPlayerIndex();
         previousBlockElement.getElementsByClassName(className)[0].classList.add("player-inactive");
         newBlockElement.getElementsByClassName(className)[0].classList.remove("player-inactive");
     }

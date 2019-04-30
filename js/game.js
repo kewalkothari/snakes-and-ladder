@@ -12,6 +12,7 @@ var diceTriggered = function () {
 var SnakesAndLadderGame = (function () {
     let view;
     let players;
+    let snakesAndLadder
 
     /**
      * Constructor
@@ -19,6 +20,7 @@ var SnakesAndLadderGame = (function () {
     var SnakesAndLadderGame = function () {
         view = _gameConfiguration.getViewInstance();
         players = _gameConfiguration.getPlayersInstance();
+        snakesAndLadder = _gameConfiguration.getSnakesAndLadderInstance();
         let diceValue = generateDiceValue();
         triggerGame(diceValue);
     }
@@ -51,10 +53,10 @@ var SnakesAndLadderGame = (function () {
             currentPlayer.setPosition(previousValue + diceValue);
             let currentValue = currentPlayer.currentPosition;
 
-            currentPlayer.setPosition(_snakesAndLadder.getLadderJump(currentValue));
+            currentPlayer.setPosition(snakesAndLadder.getLadderJump(currentValue));
             currentValue = currentPlayer.currentPosition;
 
-            currentPlayer.setPosition(_snakesAndLadder.getSnakeDip(currentValue));
+            currentPlayer.setPosition(snakesAndLadder.getSnakeDip(currentValue));
             currentValue = currentPlayer.currentPosition;
 
             view.updatePlayerLocation(previousValue, currentValue);

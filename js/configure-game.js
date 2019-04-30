@@ -22,7 +22,6 @@ var ConfigureGame = (function () {
         mainBoardStructure.setBoardStructureArr(boardStructure);
 
         snakesAndLadder = new SnakesAndLadder();
-        _snakesAndLadder = snakesAndLadder;
         snakesAndLadder.addSnake(new Snake(58, 21));
         snakesAndLadder.addSnake(new Snake(87, 45));
         snakesAndLadder.addSnake(new Snake(97, 38));
@@ -53,6 +52,13 @@ var ConfigureGame = (function () {
      */
     ConfigureGame.prototype.getViewInstance = function () {
         return view;
+    }
+
+    /**
+     * Returns the instance of view class.
+     */
+    ConfigureGame.prototype.getSnakesAndLadderInstance = function () {
+        return snakesAndLadder;
     }
 
     /**
