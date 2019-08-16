@@ -8,8 +8,8 @@ window.onload = function (e) {
 
 var includeFiles = function(fileURLs) {
     let promiseList = [];
-    for (let x = 0; x < fileURLs.length; x++) {
-        promiseList.push(includeFile(fileURLs[x]));
+    for (let fileIndex = 0; fileIndex < fileURLs.length; fileIndex++) {
+        promiseList.push(includeFile(fileURLs[fileIndex]));
     }
 
     return new Promise(function(resolve, reject) {
