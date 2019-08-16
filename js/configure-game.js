@@ -2,68 +2,25 @@ window.onload = function (e) {
     _gameConfiguration = new ConfigureGame();
 }
 
-/**
- * Configures the initial game setup.
- */
 var ConfigureGame = (function () {
     let mainBoardStructure;
     let snakesAndLadder;
     let players;
     let view;
 
-    /**
-     * Constructor
-     */
     var ConfigureGame = function () {
-
-        let boardStructure = generateBoardStructure();
-
-        mainBoardStructure = new MainBoardStructure();
-        mainBoardStructure.setBoardStructureArr(boardStructure);
-
-        snakesAndLadder = new SnakesAndLadder();
-        snakesAndLadder.addSnake(new Snake(58, 21));
-        snakesAndLadder.addSnake(new Snake(87, 45));
-        snakesAndLadder.addSnake(new Snake(97, 38));
-
-        snakesAndLadder.addLadder(new Ladder(24, 56));
-        snakesAndLadder.addLadder(new Ladder(43, 65));
-        snakesAndLadder.addLadder(new Ladder(49, 74));
-
-        let laddersArr = snakesAndLadder.getLadders();
-        let snakesArr = snakesAndLadder.getSnakes();
-
-        players = new Players();
-        players.addPlayer(new Player());
-        players.addPlayer(new Player());
-
-        view = new ViewGeneration(mainBoardStructure, laddersArr, snakesArr, players);
+        initializeGame();
     }
 
-    /**
-     * Returns the instance of players class.
-     */
-    ConfigureGame.prototype.getPlayersInstance = function () {
-        return players;
+    var initializeGame = function() {
+        let PLAYERS_COUNT = 2;
+        
+        generateBoardStructure();
+        createPlayers(PLAYERS_COUNT);
+        createSnakesAndLadders();
+        generateView();
     }
 
-    /**
-     * Returns the instance of view class.
-     */
-    ConfigureGame.prototype.getViewInstance = function () {
-        return view;
-    }
-
-    /**
-     * Returns the instance of view class.
-     */
-    ConfigureGame.prototype.getSnakesAndLadderInstance = function () {
-        return snakesAndLadder;
-    }
-
-    /**
-     * Generate the board structure.
-     */
     var generateBoardStructure = function () {
         let counter = 1;
         let tempSingleRow = [];
@@ -86,7 +43,46 @@ var ConfigureGame = (function () {
             }
         }
 
-        return boardStructure.flat();
+        mainBoardStructure = new MainBoardStructure(boardStructure.flat());
+    }
+
+    var createPlayers = function(playerCount) {
+        players = new Players();
+
+        for (let x = 0; x < playerCount; x++) {
+            players.addPlayer(new Player());
+        }
+    }
+
+    var createSnakesAndLadders = function () {
+        snakesAndLadder = new SnakesAndLadder();
+
+        snakesAndLadder.addSnake(new Snake(58, 21));
+        snakesAndLadder.addSnake(new Snake(87, 45));
+        snakesAndLadder.addSnake(new Snake(97, 38));
+
+        snakesAndLadder.addLadder(new Ladder(24, 56));
+        snakesAndLadder.addLadder(new Ladder(43, 65));
+        snakesAndLadder.addLadder(new Ladder(49, 74));
+    }
+
+    var generateView = function () {
+        let laddersArr = snakesAndLadder.getLadders();
+        let snakesArr = snakesAndLadder.getSnakes();
+
+        view = new ViewGeneration(mainBoardStructure, laddersArr, snakesArr, players);
+    }
+
+    ConfigureGame.prototype.getPlayers = function () {
+        return players;
+    }
+
+    ConfigureGame.prototype.getViewInstance = function () {
+        return view;
+    }
+
+    ConfigureGame.prototype.getSnakesAndLadderInstance = function () {
+        return snakesAndLadder;
     }
 
     return ConfigureGame;
