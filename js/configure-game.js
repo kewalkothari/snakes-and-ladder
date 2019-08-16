@@ -1,7 +1,3 @@
-window.onload = function (e) {
-    _gameConfiguration = new ConfigureGame();
-}
-
 var ConfigureGame = (function () {
     let mainBoardStructure;
     let snakesAndLadder;
@@ -14,11 +10,13 @@ var ConfigureGame = (function () {
 
     var initializeGame = function() {
         let PLAYERS_COUNT = 2;
-        
-        generateBoardStructure();
-        createPlayers(PLAYERS_COUNT);
-        createSnakesAndLadders();
-        generateView();
+
+        addImports().then(function () {
+            generateBoardStructure();
+            createPlayers(PLAYERS_COUNT);
+            createSnakesAndLadders();
+            generateView();
+        });
     }
 
     var generateBoardStructure = function () {
@@ -71,6 +69,10 @@ var ConfigureGame = (function () {
         let snakesArr = snakesAndLadder.getSnakes();
 
         view = new ViewGeneration(mainBoardStructure, laddersArr, snakesArr, players);
+    }
+
+    var addImports = function () {
+        return includeFiles(['js/structure.js', 'js/player.js', 'js/view-generation.js', 'js/game.js']);
     }
 
     ConfigureGame.prototype.getPlayers = function () {

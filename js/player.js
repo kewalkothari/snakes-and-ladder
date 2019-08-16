@@ -1,4 +1,4 @@
-var _gameConfiguration;
+
 
 /**
  * Player class.
