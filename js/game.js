@@ -49,9 +49,8 @@ var SnakesAndLadderGame = (function () {
 
             view.updatePlayerLocation(previousValue, currentValue);
             hasPlayerWon(currentValue);
-            changePlayer(diceValue);
         }
-
+        changePlayer(diceValue);
     }
 
     var changePlayer = function (diceValue) {
