@@ -4,13 +4,7 @@
 var ViewGeneration = (function () {
 
     let playersObj;
-    /**
-     * Constructor
-     * @param {MainBoardStructure} mainBoardStructure 
-     * @param {Ladder[]} laddersArr 
-     * @param {Snake[]} snakesArr 
-     * @param {Players} players 
-     */
+
     var ViewGeneration = function (mainBoardStructure, laddersArr, snakesArr, players) {
         playersObj = players;
         addBoardToView(mainBoardStructure);
@@ -19,20 +13,11 @@ var ViewGeneration = (function () {
         initPlayers(players)
     }
 
-    /**
-     * Updates View for the player won.
-     * @param {int} playerId 
-     */
     ViewGeneration.prototype.playerWon = function (playerId) {
         document.getElementById("player-info").innerHTML = '<span class="player' + playerId + '">Player: ' + playerId + ' Won!</span>';
         document.getElementById("dice-roll").disabled = true;
     }
 
-    /**
-     * Updates the player location in view.
-     * @param {int} previousPosition 
-     * @param {int} CurrentPosition 
-     */
     ViewGeneration.prototype.updatePlayerLocation = function (previousPosition, currentPosition) {
         let previousBlock = "block" + previousPosition;
         let previousBlockElement = document.getElementById(previousBlock);
@@ -45,27 +30,15 @@ var ViewGeneration = (function () {
         newBlockElement.getElementsByClassName(className)[0].classList.remove("player-inactive");
     }
 
-    /**
-     * Updates the current player label.
-     * @param {int} playerId 
-     */
     ViewGeneration.prototype.updateCurrentPlayerLabel = function (playerId) {
         document.getElementById("player-info").innerHTML = '<span class="player' + playerId + '">Current Player: ' + playerId + '</span>';
     }
 
-    /**
-     * Updates the Dice label.
-     * @param {int} diceValue 
-     */
     ViewGeneration.prototype.updateDiceLabel = function (diceValue) {
         var displayText = "<span>Dice Value: " + diceValue + "</span>";
         document.getElementById("game-play").innerHTML = displayText;
     }
 
-    /**
-     * Initializes view for the players.
-     * @param {Players} players 
-     */
     var initPlayers = function (players) {
         let block1 = document.getElementById("block1");
         let playersArr = players.getPlayers();
@@ -77,10 +50,6 @@ var ViewGeneration = (function () {
         document.getElementById("player-info").innerHTML = '<span class="player1">Current Player: 1</span>';
     }
 
-    /**
-     * Adds the board to view.
-     * @param {MainBoardStructure} mainBoardStructure 
-     */
     var addBoardToView = function (mainBoardStructure) {
         let mainBoard = document.getElementById("main-board");
         let mainBoardStructureArr = mainBoardStructure.getBoardStructureArr();
@@ -95,11 +64,6 @@ var ViewGeneration = (function () {
         }
     }
 
-    /**
-     * Adds the ladders to view.
-     * @param {MainBoardStructure} mainBoardStructure 
-     * @param {Ladder[]} laddersArr 
-     */
     var addLaddersToView = function (mainBoardStructure, laddersArr) {
         laddersArr.forEach(ladder => {
             let coordinates = generateCoordinates(mainBoardStructure, ladder.from, ladder.to);
@@ -114,11 +78,6 @@ var ViewGeneration = (function () {
         });
     }
 
-    /**
-     * Adds the snakes to view.
-     * @param {MainBoardStructure} mainBoardStructure 
-     * @param {Snakes[]} snakesArr 
-     */
     var addSnakesToView = function (mainBoardStructure, snakesArr) {
         snakesArr.forEach(ladder => {
             let coordinates = generateCoordinates(mainBoardStructure, ladder.from, ladder.to);
@@ -133,12 +92,6 @@ var ViewGeneration = (function () {
         });
     }
 
-    /**
-     * Generates the co-ordinates for the blocks.
-     * @param {MainBoardStructure} mainBoardStructure 
-     * @param {int} fromBlock 
-     * @param {int} toBlock 
-     */
     var generateCoordinates = function (mainBoardStructure, fromBlock, toBlock) {
         fromBlockIndex = mainBoardStructure.getIndex(fromBlock);
         toBlockIndex = mainBoardStructure.getIndex(toBlock);

@@ -14,22 +14,14 @@ var SnakesAndLadderGame = (function () {
     let players;
     let snakesAndLadder
 
-    /**
-     * Constructor
-     */
     var SnakesAndLadderGame = function () {
         view = _gameConfiguration.getViewInstance();
-        players = _gameConfiguration.getPlayersInstance();
+        players = _gameConfiguration.getPlayers();
         snakesAndLadder = _gameConfiguration.getSnakesAndLadderInstance();
         let diceValue = generateDiceValue();
         triggerGame(diceValue);
     }
 
-
-    /**
-     * Checks if the player has won.
-     * @param {int} currentPosition 
-     */
     var hasPlayerWon = function (currentPosition) {
         if (currentPosition === 100) {
             let currentPlayerIndex = players.getCurrentPlayerIndex();
@@ -38,10 +30,6 @@ var SnakesAndLadderGame = (function () {
         }
     }
 
-    /**
-     * Triggers the game logic.
-     * @param {int} diceValue 
-     */
     var triggerGame = function (diceValue) {
         let currentPlayerIndex = players.getCurrentPlayerIndex();
         let playerIndex = currentPlayerIndex - 1;
@@ -61,15 +49,10 @@ var SnakesAndLadderGame = (function () {
 
             view.updatePlayerLocation(previousValue, currentValue);
             hasPlayerWon(currentValue);
-            changePlayer(diceValue);
         }
-
+        changePlayer(diceValue);
     }
 
-    /**
-     * Changes the player once the turn is over.
-     * @param {int} diceValue 
-     */
     var changePlayer = function (diceValue) {
         if (diceValue !== 6 && players.isGameInProgress()) {
             let currentIndex = players.getCurrentPlayerIndex();
@@ -81,9 +64,6 @@ var SnakesAndLadderGame = (function () {
         players = null;
     }
 
-    /**
-     * Generates the Dice value.
-     */
     var generateDiceValue = function () {
         let diceValue = Math.floor((Math.random() * 6) + 1);
         view.updateDiceLabel(diceValue);
